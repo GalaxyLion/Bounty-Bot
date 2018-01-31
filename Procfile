@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/TelegramBot.jar
+web: java -jar target/TelegramBot.jar

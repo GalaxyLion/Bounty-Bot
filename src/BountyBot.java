@@ -17,8 +17,17 @@ public class BountyBot extends TelegramLongPollingBot {
                 // User send /start
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
-                        .setText("Добро пожаловать в BountyAirDrop_Bot." +
-                                "Это самый простой способ узнать информацию об актуальных Bounty компаниях, различных AirDrop, а также криптовалютных кранах");
+                        .setText("Добро пожаловать в BountyAirDrop_Bot. \n" +
+                                "Это самый простой способ узнать информацию об актуальных Bounty компаниях, различных AirDrop, а также криптовалютных кранах.");
+                try {
+                    execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                SendMessage message = new SendMessage() // Create a message object object
+                        .setChatId(chatId)
+                        .setText(messagText);
                 try {
                     execute(message); // Sending our message object to user
                 } catch (TelegramApiException e) {

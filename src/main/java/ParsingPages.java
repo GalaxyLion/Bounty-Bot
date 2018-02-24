@@ -47,6 +47,7 @@ public class ParsingPages {
                                     returnUrl();
                                     setReturn(true);
                                     prevCountTags = currentCountTags;
+                                    System.out.println("Updated");
                                 }
 
                             } catch (IOException e) {

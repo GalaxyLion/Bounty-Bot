@@ -137,9 +137,9 @@ public class BountyBot extends TelegramLongPollingBot {
                     execute(parsingPages.updateInfoUrl(chatIdGlobal, bounty[1], bounty[0]));
                 }
             }
-            if(parsingPages.returnUrl().equals(faucet[0]) && parsingPages.getReturn()){
+            if(parsingPages.returnUrl().equals(airDrop[0]) && parsingPages.getReturn()){
                 if(chatIdGlobal!=0) {
-                    execute(parsingPages.updateInfoUrl(chatIdGlobal, faucet[1], faucet[0]));
+                    execute(parsingPages.updateInfoUrl(chatIdGlobal, airDrop[1], airDrop[0]));
                 }
             }
 

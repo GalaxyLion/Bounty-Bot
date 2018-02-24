@@ -114,25 +114,31 @@ public class BountyBot extends TelegramLongPollingBot {
 
     public void updateUrls() throws TelegramApiException{
 
-        String [] taps = {"http://telegra.ph/Aktualnye-krany-kriptovalyut-02-03" ,"Кранов"};
+        String [] faucet = {"http://telegra.ph/Aktualnye-krany-kriptovalyut-02-03" ,"Кранов"};
         String [] bounty = {"http://telegra.ph/Aktualnye-Bounty-kriptovalyut-02-14", "Bounty"};
+        String [] airDrop = {"http://telegra.ph/Aktualnye-AirDrop-02-20", "AirDrop"};
         ParsingPages parsingPages = new ParsingPages();
-        parsingPages.parsePage(taps[0]);
+        parsingPages.parsePage(faucet[0]);
         parsingPages.parsePage(bounty[0]);
 
 
 
         while (true) {
-            if (parsingPages.returnUrl().equals(taps[0]) && parsingPages.getReturn()) {
+            if (parsingPages.returnUrl().equals(faucet[0]) && parsingPages.getReturn()) {
 
                 if(chatIdGlobal!=0) {
-                    execute(parsingPages.updateInfoUrl(chatIdGlobal, taps[1], taps[0]));
+                    execute(parsingPages.updateInfoUrl(chatIdGlobal, faucet[1], faucet[0]));
                 }
             }
 
             if(parsingPages.returnUrl().equals(bounty[0]) && parsingPages.getReturn()){
                 if(chatIdGlobal!=0) {
                     execute(parsingPages.updateInfoUrl(chatIdGlobal, bounty[1], bounty[0]));
+                }
+            }
+            if(parsingPages.returnUrl().equals(faucet[0]) && parsingPages.getReturn()){
+                if(chatIdGlobal!=0) {
+                    execute(parsingPages.updateInfoUrl(chatIdGlobal, faucet[1], faucet[0]));
                 }
             }
 

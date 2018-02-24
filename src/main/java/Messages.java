@@ -40,11 +40,11 @@ public class Messages {
         return message;
     }
 
-    public static SendMessage returnUpdatedUrl(long chatId, String tapsBountyAir, String url){
+    public static SendMessage returnUpdatedUrl(long chatId, String faucetBountyAir, String url){
         SendMessage message = new SendMessage() // Create a message object object
                 .setChatId(chatId)
                 .setText(EmojiParser.parseToUnicode("Привет, обновилась информация на странице "
-                        + tapsBountyAir+ "\n" +
+                        + faucetBountyAir+ "\n" +
                         "Рекомендую посмотреть :wink: \n" +
                         url));
         return message;

@@ -15,38 +15,38 @@ public class ParsingPages {
 
     private String returntUrl = "";
 
-    public void parsePage(final String urlTBA){
+    public void parsePage(final String urlFBA){
 
 
         Thread run = new Thread(new Runnable() {
 
-            int prevCountTaps = 0;
+            int prevCountTags = 0;
 
             public void run() {
 
                 while(true){
                     try {
 
-                        int currentCountTaps = 0;
+                        int currentCountTags = 0;
                             try {
-                                Document document = Jsoup.connect(urlTBA).get();
+                                Document document = Jsoup.connect(urlFBA).get();
 
                                 Elements elements = document.select("h4");
 
                                 for (Element element : elements) {
                                     System.out.println(element);
-                                    currentCountTaps++;
-                                    System.out.println(currentCountTaps);
+                                    currentCountTags++;
+                                    System.out.println(currentCountTags);
                                 }
-                                if(prevCountTaps == 0){
-                                    prevCountTaps = currentCountTaps;
+                                if(prevCountTags == 0){
+                                    prevCountTags = currentCountTags;
                                 }
-                                if(prevCountTaps !=0 && prevCountTaps!=currentCountTaps){
+                                if(prevCountTags !=0 && prevCountTags!=currentCountTags){
 
-                                    returntUrl = urlTBA;
+                                    returntUrl = urlFBA;
                                     returnUrl();
                                     setReturn(true);
-                                    prevCountTaps = currentCountTaps;
+                                    prevCountTags = currentCountTags;
                                 }
 
                             } catch (IOException e) {
@@ -66,9 +66,9 @@ public class ParsingPages {
 
 
 
-    public SendMessage updateInfoUrl(long chatId, String tapsBountyAir, String url){
+    public SendMessage updateInfoUrl(long chatId, String faucetBountyAir, String url){
 
-        SendMessage message = Messages.returnUpdatedUrl(chatId,tapsBountyAir,url);
+        SendMessage message = Messages.returnUpdatedUrl(chatId,faucetBountyAir,url);
         setReturn(false);
         return message;
     }

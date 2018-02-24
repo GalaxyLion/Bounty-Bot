@@ -10,8 +10,14 @@ public class Main {
 
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
+        //ParsingPages parsePages = new ParsingPages();
+
+
         try {
-            botsApi.registerBot(new BountyBot());
+           // parsePages.parseTap();
+            BountyBot bountyBot = new BountyBot();
+            botsApi.registerBot(bountyBot);
+            bountyBot.updateUrls();
         }catch (TelegramApiException ex){
             ex.printStackTrace();
         }

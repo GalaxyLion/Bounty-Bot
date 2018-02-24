@@ -24,7 +24,7 @@ public class Messages {
             messageReturn = "Вот актуальная ссылка для Вас \n" +
                     "http://telegra.ph/Aktualnye-Bounty-kriptovalyut-02-14";
         }else if(messageText.contains("AirDrop")){
-            messageReturn = "Еще не готово";
+            messageReturn = "http://telegra.ph/Aktualnye-AirDrop-02-20";
         }
 
         SendMessage message = new SendMessage() // Create a message object object

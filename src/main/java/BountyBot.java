@@ -120,6 +120,7 @@ public class BountyBot extends TelegramLongPollingBot {
         ParsingPages parsingPages = new ParsingPages();
         parsingPages.parsePage(faucet[0]);
         parsingPages.parsePage(bounty[0]);
+        parsingPages.parsePage(airDrop[0]);
 
 
 

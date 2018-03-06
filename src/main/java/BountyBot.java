@@ -1,4 +1,4 @@
-import com.vdurmont.emoji.EmojiParser;
+
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
 
@@ -8,6 +8,9 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import java.io.File;
+import java.util.HashSet;
+import java.util.Iterator;
 
 
 public class BountyBot extends TelegramLongPollingBot {
@@ -19,6 +22,9 @@ public class BountyBot extends TelegramLongPollingBot {
         long chatId = update.getMessage().getChatId();
 
         chatIdGlobal = chatId;
+
+
+
 
         if (update.hasMessage() && update.getMessage().hasText()) {
 
@@ -32,6 +38,14 @@ public class BountyBot extends TelegramLongPollingBot {
 
 
             if (messageText.equals("/start")) {
+
+                FileChatId fileChatId = new FileChatId();
+                if (chatIdGlobal != 0) {
+                    System.out.println("Chat id is " + chatIdGlobal);
+                    fileChatId.writeChatIds(chatIdGlobal);
+                    System.out.println("File updated");
+
+                }
 
                 SendPhoto messagePhoto = Messages.returnStartMessage(chatId);
                 //Create markup keyboard
@@ -68,6 +82,8 @@ public class BountyBot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
+
+
 
             }
 
@@ -112,38 +128,52 @@ public class BountyBot extends TelegramLongPollingBot {
 
     }
 
-    public void updateUrls() throws TelegramApiException{
 
-        String [] faucet = {"http://telegra.ph/Aktualnye-krany-kriptovalyut-02-03" ,"Кранов"};
-        String [] bounty = {"http://telegra.ph/Aktualnye-Bounty-kriptovalyut-02-14", "Bounty"};
-        String [] airDrop = {"http://telegra.ph/Aktualnye-AirDrop-02-20", "AirDrop"};
+
+
+
+    public void displayUpdatedUrls() throws TelegramApiException{
+
+        String [] [] fbaMat ={ {"http://telegra.ph/Aktualnye-krany-kriptovalyut-02-03" ,"Кранов"},
+                                {"http://telegra.ph/Aktualnye-Bounty-kriptovalyut-02-14", "Bounty"},
+                                {"http://telegra.ph/Aktualnye-AirDrop-02-20", "AirDrop"}};
         ParsingPages parsingPages = new ParsingPages();
-        parsingPages.parsePage(faucet[0]);
-        parsingPages.parsePage(bounty[0]);
-        parsingPages.parsePage(airDrop[0]);
+        parsingPages.parsePage(fbaMat[0][0]);
+        parsingPages.parsePage(fbaMat[1][0]);
+        parsingPages.parsePage(fbaMat[2][0]);
+
+
 
 
 
         while (true) {
-            if (parsingPages.returnUrl().equals(faucet[0]) && parsingPages.getReturn()) {
 
-                if(chatIdGlobal!=0) {
-                    execute(parsingPages.updateInfoUrl(chatIdGlobal, faucet[1], faucet[0]));
-                }
+            if (parsingPages.returnUrl().equals(fbaMat[0][0]) && parsingPages.getReturn()) {
+                executeMessagePage(parsingPages,fbaMat[0][0],fbaMat[0][1]);
             }
 
-            if(parsingPages.returnUrl().equals(bounty[0]) && parsingPages.getReturn()){
-                if(chatIdGlobal!=0) {
-                    execute(parsingPages.updateInfoUrl(chatIdGlobal, bounty[1], bounty[0]));
-                }
+            if(parsingPages.returnUrl().equals(fbaMat[1][0]) && parsingPages.getReturn()){
+                executeMessagePage(parsingPages,fbaMat[1][0],fbaMat[1][1]);
             }
-            if(parsingPages.returnUrl().equals(airDrop[0]) && parsingPages.getReturn()){
-                if(chatIdGlobal!=0) {
-                    execute(parsingPages.updateInfoUrl(chatIdGlobal, airDrop[1], airDrop[0]));
-                }
+
+            if(parsingPages.returnUrl().equals(fbaMat[2][0]) && parsingPages.getReturn()){
+                executeMessagePage(parsingPages,fbaMat[2][0],fbaMat[2][1]);
             }
 
         }
+    }
+
+    private void executeMessagePage(ParsingPages parsingPages, String fbaUrl, String fba) throws TelegramApiException{
+
+        FileChatId fileId = new FileChatId();
+        HashSet<Long> ids = fileId.readChatIds();
+            if(!(ids.isEmpty())) {
+                Iterator<Long> iterator = ids.iterator();
+                while (iterator.hasNext()) {
+                    execute(parsingPages.updateInfoUrl(iterator.next(),fba, fbaUrl));
+                }
+                fileId.updateIdsFile(ids);
+            }
     }
 
 

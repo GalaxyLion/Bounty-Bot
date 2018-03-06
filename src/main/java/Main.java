@@ -17,7 +17,8 @@ public class Main {
            // parsePages.parseTap();
             BountyBot bountyBot = new BountyBot();
             botsApi.registerBot(bountyBot);
-            bountyBot.updateUrls();
+            bountyBot.displayUpdatedUrls();
+
         }catch (TelegramApiException ex){
             ex.printStackTrace();
         }
